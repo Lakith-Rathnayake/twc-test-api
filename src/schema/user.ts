@@ -22,4 +22,3 @@ UserSchema.methods.comparePassword = async function (userPassword: string) {
 
 const User = mongoose.model<UserDocument>('User', UserSchema);
 export default User;
-export const getUsers = () => User.find();
