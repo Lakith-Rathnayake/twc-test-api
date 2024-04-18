@@ -31,7 +31,10 @@ async function saveUser(req: Request, res: Response) {
 }
 
 async function getUser(req: Request, res: Response) {
-    const {email, password} = req.body;
+    const email:any = req.query.email;
+    const password: any = req.query.password;
+    // const {email, password} = req.body;
+    console.log(email, "  ", password);
     try {
         const user = await User.findOne({email});
         if(!user) return res.sendStatus(404);
