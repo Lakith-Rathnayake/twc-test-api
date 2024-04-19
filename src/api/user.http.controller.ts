@@ -8,7 +8,7 @@ import Counter from "../schema/counter";
 const controller = Router();
 
 controller.post('/', saveUser);
-controller.get('/', getUser);
+controller.post('/login', getUser);
 controller.get ('/contact', getAllContacts);
 controller.post('/contact', postContact);
 controller.patch('/contact/:id', updateContact);
@@ -23,7 +23,9 @@ async function saveUser(req: Request, res: Response) {
         const user = new User({email, password: hashedPassword});
         await user.save();
 
-        res.sendStatus(201);
+        console.log(user);
+
+        res.status(201).json(user);
     } catch (error) {
         console.log(error);
         res.sendStatus(500); // Internal server error
@@ -31,9 +33,7 @@ async function saveUser(req: Request, res: Response) {
 }
 
 async function getUser(req: Request, res: Response) {
-    const email:any = req.query.email;
-    const password: any = req.query.password;
-    // const {email, password} = req.body;
+    const {email, password} = req.body;
     console.log(email, "  ", password);
     try {
         const user = await User.findOne({email});
